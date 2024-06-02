@@ -2,36 +2,49 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-latest'  # Alternatively, try 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '5.x' # Use the appropriate .NET SDK version
+jobs:
+- job: Restore
+  displayName: 'Restore NuGet Packages'
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '5.x.x'  # Ensure this matches the .NET version required
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
 
-- task: NuGetToolInstaller@1
+- job: Build
+  displayName: 'Build Solution'
+  pool:
+    vmImage: 'windows-latest'
+  dependsOn: Restore  # This job depends on the Restore job
+  steps:
+  - task: VSBuild@1
+    inputs:
+      solution: '**/*.sln'
+      msbuildArgs: '/p:Configuration=$(buildConfiguration)'
+      platform: 'any cpu'
+      configuration: '$(buildConfiguration)'
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '**/*.sln'
-
-- task: VSBuild@1
-  inputs:
-    solution: '**/*.sln'
-    msbuildArgs: '/p:Configuration=$(buildConfiguration)'
-    platform: 'any cpu'
-    configuration: '$(buildConfiguration)'
-
-- task: CopyFiles@2
-  inputs:
-    contents: '**/App_Code.dll'
-    targetFolder: '$(build.artifactStagingDirectory)/bin'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/bin'
-    artifactName: 'drop'
+- job: Publish
+  displayName: 'Publish Build Artifacts'
+  pool:
+    vmImage: 'windows-latest'
+  dependsOn: Build  # This job depends on the Build job
+  steps:
+  - task: CopyFiles@2
+    inputs:
+      contents: '**/App_Code.dll'
+      targetFolder: '$(build.artifactStagingDirectory)/bin'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(build.artifactStagingDirectory)/bin'
+      artifactName: 'drop'
