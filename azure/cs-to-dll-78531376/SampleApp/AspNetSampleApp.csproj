@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="App_Code\*.cs" />
+  </ItemGroup>
+
+  <Target Name="CustomCompile" AfterTargets="Build">
+    <Csc Sources="@(Compile)" OutputAssembly="bin\App_Code.dll" />
+  </Target>
+
+</Project>
