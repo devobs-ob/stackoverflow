@@ -11,7 +11,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '5.x.x' # Use the appropriate .NET SDK version
+    version: '5.x' # Use the appropriate .NET SDK version
 
 - task: NuGetToolInstaller@1
 
