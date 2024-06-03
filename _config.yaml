@@ -39,17 +39,17 @@ plugins:
   - jekyll-seo-tag
 
 # Pagination
-paginate: 10
-paginate_path: "/page:num/"
+# paginate: 10
+# paginate_path: "/page:num/"
 
-# Menu
-menu:
-  - title: Home
-    url: /
-  - title: About
-    url: /about
-  - title: Contact
-    url: /contact
+# # Menu
+# menu:
+#   - title: Home
+#     url: /
+#   - title: About
+#     url: /about
+#   - title: Contact
+#     url: /contact
 
-# Custom Variables
-custom_var: my_custom_value
+# # Custom Variables
+# custom_var: my_custom_value
