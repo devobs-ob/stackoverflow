@@ -1,0 +1,55 @@
+# _config.yml
+
+title: DevObs Solutions
+description: Solving Unanswered DevOps Problems on StackOverflow
+url: https://devobs-ob.github.io
+baseurl: "/stackoverflow" # the subpath of your site, e.g. /blog
+repository: devobs-ob/stackoverflow
+
+# Theme
+theme: jekyll-theme-minimal
+
+# Author
+author:
+  name: Ob
+  email: devobs-ob@gmail.com
+
+# Social links
+social_links:
+  - name: GitHub
+    url: https://github.com/devobs-ob
+
+
+# # Enable Google Analytics
+# google_analytics: UA-XXXXXXXXX-X
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files from Jekyll processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# Menu
+menu:
+  - title: Home
+    url: /
+  - title: About
+    url: /about
+  - title: Contact
+    url: /contact
+
+# Custom Variables
+custom_var: my_custom_value
