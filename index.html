@@ -1,0 +1,28 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+</head>
+<body>
+  <header>
+    <h1>{{ site.title }}</h1>
+    <p>{{ site.description }}</p>
+  </header>
+  <main>
+    <ul>
+      {% for folder in site.static_files %}
+        {% if folder.path contains '/stackoverflow/' and folder.path contains '/' and folder.path != '/index.html' %}
+          <li>
+            <a href="{{ folder.path | relative_url }}">{{ folder.path | split: '/' | last }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html>
